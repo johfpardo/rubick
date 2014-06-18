@@ -41,6 +41,8 @@ public class Rubick {
         initEdges(blue, Cubies.blueColor);
         initEdges(yellow, Cubies.yellowColor);
         initEdges(green, Cubies.greenColor);
+        
+        initCouples(white,blue,yellow,green,red,orange);
     }
 
     public String toString() {
@@ -71,6 +73,50 @@ public class Rubick {
         center.edges.updateDown(downEdge);
         center.edges.updateLeft(leftEdge);
 
+    }
+    
+    private void initCouples(Center white, Center blue, Center yellow, 
+                                    Center green, Center red, Center orange) {
+        
+        Edges auxUp = (Edges)white.edges.getUp();
+        Edges auxRight = (Edges)white.edges.getRight();
+        Edges auxDown = (Edges)white.edges.getDown();
+        Edges auxLeft = (Edges)white.edges.getLeft();
+        auxUp.couple = (Edges) red.edges.getDown();
+        auxUp.couple.couple = auxUp;
+        auxRight.couple = (Edges) blue.edges.getLeft();
+        auxRight.couple.couple = auxRight;
+        auxDown.couple = (Edges) orange.edges.getUp();
+        auxDown.couple.couple = auxDown;
+        auxLeft.couple = (Edges) green.edges.getRight();
+        auxLeft.couple.couple = auxLeft;
+        
+        auxUp = (Edges)yellow.edges.getUp();
+        auxRight = (Edges)yellow.edges.getRight();
+        auxDown = (Edges)yellow.edges.getDown();
+        auxLeft = (Edges)yellow.edges.getLeft();
+        auxUp.couple = (Edges) red.edges.getUp();
+        auxUp.couple.couple = auxUp;
+        auxRight.couple = (Edges) blue.edges.getRight();
+        auxRight.couple.couple = auxRight;
+        auxDown.couple = (Edges) orange.edges.getDown();
+        auxDown.couple.couple = auxDown;
+        auxLeft.couple = (Edges) green.edges.getLeft();
+        auxLeft.couple.couple = auxLeft;
+        
+        auxUp = (Edges)blue.edges.getUp();
+        auxDown = (Edges)blue.edges.getDown();
+        auxUp.couple = (Edges) red.edges.getRight();
+        auxUp.couple.couple = auxUp;
+        auxDown.couple = (Edges) orange.edges.getRight();
+        auxDown.couple.couple = auxDown;
+        
+        auxUp = (Edges)green.edges.getUp();
+        auxDown = (Edges)green.edges.getDown();
+        auxUp.couple = (Edges) red.edges.getLeft();
+        auxUp.couple.couple = auxUp;
+        auxDown.couple = (Edges) orange.edges.getLeft();
+        auxDown.couple.couple = auxDown;
     }
     
     private void moveUpEdges(SimpleList list) {
@@ -179,6 +225,7 @@ public class Rubick {
         Cubies left;
         Cubies right;
         Cubies color;
+        Edges couple;
 
         public Edges(Cubies left, Cubies right, Cubies color) {
             this.left = left;
