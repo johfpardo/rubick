@@ -1,0 +1,1 @@
+un algoritmo de busqueda para la solucion del cubo rubik usando diferentes tipos de busqueda
